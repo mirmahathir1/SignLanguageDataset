@@ -1,0 +1,16 @@
+logs
+raw_videos
+sample_video
+report
+cropped_videos/
+.idea
+__pycache__/
+split_videos
+split_audios
+binary_data
+downsampled_audios
+.ipynb_checkpoints
+env
+corrupted_raw_videos/
+reduced_videos/
+sample_videos/
