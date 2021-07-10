@@ -4,22 +4,24 @@ from os.path import isfile, join
 import config
 
 
-def split(src_directory, video_file, dst_directory, fps, dimension):
+def reduce(src_directory, video_file, dst_directory, fps):
 
     file_name_without_ext = video_file.split(".")[0]
+
+    if isfile(dst_directory + file_name_without_ext + ".mp4"):
+        print("DUPLICATE: skipping ", dst_directory + file_name_without_ext + ".mp4")
+        return
 
     clip = VideoFileClip(src_directory + video_file)
 
     print(clip.fps)
-    print(clip.w, " ", clip.h)
+    # print(clip.w, " ", clip.h)
 
     original_video = VideoFileClip(src_directory + video_file)
 
     print("generating: ", dst_directory + file_name_without_ext + ".mp4")
 
-    if isfile(dst_directory + file_name_without_ext + ".mp4"):
-        print("DUPLICATE: skipping ", dst_directory + file_name_without_ext + ".mp4")
-        return
+
 
     clip = VideoFileClip(src_directory + video_file)
     # clip = clip.resize(dimension)
@@ -29,5 +31,5 @@ def split(src_directory, video_file, dst_directory, fps, dimension):
                                  audio_codec='aac')
 
 
-split("cropped_videos/", "Ill be getting the AstraZeneca jab tomorrow Boris Johnson @BBC News live 🔴 BBC.mp4", "reduced_videos/",
-    10, config.video_dimension)
+reduce("cropped_videos/", "Ill be getting the AstraZeneca jab tomorrow Boris Johnson @BBC News live 🔴 BBC.mp4", "reduced_videos/",
+    10)

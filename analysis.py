@@ -1,21 +1,17 @@
-from scipy.io import wavfile
-import numpy as np
-wav_name = "downsampled_audios/Do not wreck this now Van-Tam pleads 🔴 @BBC News live - BBC_0.wav"
-samplerate, data = wavfile.read(wav_name)
-print(samplerate)
-print(data.shape)
-print(data)
-print(data.dtype)
+from os import listdir
+from os.path import isfile, join
+import os
 
-max_data = np.max(data)
-data = data/max_data
-data = data*1000
-data = data.astype(np.int32)
+count = 0
 
-print(data)
-data = data/1000
-data = data* max_data
-data = data.astype(np.int32)
-print(data)
-#
-wavfile.write('sample_video/sample.wav',samplerate,data)
+videoname_mapfile = open('./videoname_map.txt', 'w')
+
+for i in range(13):
+    mypath = './reduced_videos/' + str(i)
+    onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+    for file in onlyfiles:
+        print('./reduced_videos/', i, '/', file, ' => ', count, '.mp4')
+        # os.rename(r'./reduced_videos/' + str(i) + '/' + file, r'./reduced_videos/' + str(i) + '/' + str(count) + '.mp4')
+        count = count + 1
+
+print(count)
