@@ -14,3 +14,4 @@ env
 corrupted_raw_videos/
 reduced_videos/
 sample_videos/
+reduced_splits/

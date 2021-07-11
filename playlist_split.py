@@ -1,17 +1,23 @@
-import split_one_file
-
 from os import listdir
 from os.path import isfile, join
-import config
+import os
+import split_one_file
+listOfSpeakers = ['1']
 
-path_of_cropped_videos = "cropped_videos/"
-path_of_split_videos = "split_videos/"
+for i in listOfSpeakers:
+    mypath = './reduced_videos/' + i
+    onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+    if not os.path.isdir('./reduced_splits/' + i):
+        os.mkdir('./reduced_splits/' + i)
+    for file in onlyfiles:
+        video_name = file.split('.')[0]
 
-cropped_video_names = [f for f in listdir(path_of_cropped_videos) if isfile(join(path_of_cropped_videos, f))]
+        if not os.path.isdir('./reduced_splits/'+i+"/"+video_name):
+            os.mkdir('./reduced_splits/'+i+"/"+video_name)
 
-print(cropped_video_names)
+        destination_folder = './reduced_splits/'+i+"/"+video_name+"/"
+        src_folder = './reduced_videos/' + i + '/'
 
-for video_name in cropped_video_names:
-    print("splitting: ", path_of_cropped_videos + "/" + video_name)
-    split_one_file.split(path_of_cropped_videos, video_name, path_of_split_videos, config.split_duration,
-                         config.video_fps, config.video_dimension)
+        split_one_file.split(src_folder,video_name+".mp4",destination_folder,120)
+
+

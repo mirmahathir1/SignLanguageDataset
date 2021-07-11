@@ -4,7 +4,7 @@ from os.path import isfile, join
 import config
 
 
-def split(src_directory, video_file, dst_directory, segment_length, fps, dimension):
+def split(src_directory, video_file, dst_directory, segment_length):
 
     file_name_without_ext = video_file.split(".")[0]
 
@@ -29,8 +29,8 @@ def split(src_directory, video_file, dst_directory, segment_length, fps, dimensi
         if not isfile(dst_directory + file_name_without_ext + "_" + str(num) + ".mp4"):
             clip = VideoFileClip(src_directory + video_file).subclip(clip_start, clip_end)
             # clip = blackwhite(clip)
-            clip = clip.resize(dimension)
-            clip = clip.set_fps(fps)
+            # clip = clip.resize(dimension)
+            # clip = clip.set_fps(fps)
 
             clip.write_videofile(dst_directory + file_name_without_ext + "_" + str(num) + ".mp4",
                                  audio_codec='aac')
@@ -42,5 +42,5 @@ def split(src_directory, video_file, dst_directory, segment_length, fps, dimensi
         num += 1
 
 
-split("cropped_videos/", "Do not wreck this now Van-Tam pleads 🔴 @BBC News live - BBC.mp4", "split_videos/",
-      config.split_duration, config.video_fps, config.video_dimension)
+# split("cropped_videos/", "Do not wreck this now Van-Tam pleads 🔴 @BBC News live - BBC.mp4", "split_videos/",
+#       config.split_duration)
